@@ -11,7 +11,7 @@ import "./notes.css";
 function isSorted(arr) {
   let len = arr.length - 1;
   for (let i = 0; i < len; ++i) {
-    if (arr[i].title > arr[i + 1].title) {
+    if (arr[i].title.toLowerCase() > arr[i + 1].title.toLowerCase()) {
       return false;
     }
   }
@@ -97,7 +97,7 @@ export default class Notes extends Component {
     let baseList = this.state.notes;
     let sortedList;
     if (isSorted(baseList))
-      sortedList = this.state.notes.sort(function(a, b) {
+      sortedList = this.state.notes.sort((a, b) => {
         var titleA = a.title.toLowerCase(); // ignore upper and lowercase
         var titleB = b.title.toLowerCase(); // ignore upper and lowercase
         if (titleA < titleB) {
@@ -106,9 +106,10 @@ export default class Notes extends Component {
         if (titleA > titleB) {
           return -1;
         }
+        return 0;
       });
     else
-      sortedList = this.state.notes.sort(function(a, b) {
+      sortedList = this.state.notes.sort((a, b) => {
         var titleA = a.title.toLowerCase(); // ignore upper and lowercase
         var titleB = b.title.toLowerCase(); // ignore upper and lowercase
         if (titleA < titleB) {
@@ -117,6 +118,7 @@ export default class Notes extends Component {
         if (titleA > titleB) {
           return 1;
         }
+        return 0;
       });
     this.setState({
       notes: sortedList
